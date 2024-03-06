@@ -178,51 +178,51 @@ int mtplParse(FILE* file){
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %d\n", *((uint8_t*)heap->last_retv->data));
+                        printf("VAL: %ld\n", *((uint64_t*)heap->last_retv->data));
 
                         //MTPL_Add();
                         break;
                     case INTEGER_8_TYPE:
                                                 longsigned = MTPL_Strtoint(varv);
-                        variable.uint8 = (uint8_t)longsigned.unint;
+                        variable.uint8 = (int8_t)longsigned.unint;
                         heap = HEAP_Add(heap, UNSIGNED_INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %d\n", *((uint8_t*)heap->last_retv->data));
+                        printf("VAL: %d\n", *((int8_t*)heap->last_retv->data));
 
                         //MTPL_Add();
                         break;
                     case INTEGER_16_TYPE:
                                                 longsigned = MTPL_Strtoint(varv);
-                        variable.uint8 = (uint8_t)longsigned.unint;
+                        variable.uint8 = (int16_t)longsigned.unint;
                         heap = HEAP_Add(heap, UNSIGNED_INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %d\n", *((uint8_t*)heap->last_retv->data));
+                        printf("VAL: %d\n", *((int16_t*)heap->last_retv->data));
 
                         //MTPL_Add();
                         break;
                     case INTEGER_32_TYPE:
                                                 longsigned = MTPL_Strtoint(varv);
-                        variable.uint8 = (uint8_t)longsigned.unint;
+                        variable.uint8 = (int32_t)longsigned.unint;
                         heap = HEAP_Add(heap, UNSIGNED_INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %d\n", *((uint8_t*)heap->last_retv->data));
+                        printf("VAL: %d\n", *((int32_t*)heap->last_retv->data));
 
                         //MTPL_Add();
                         break;
                     case INTEGER_64_TYPE:
                                                 longsigned = MTPL_Strtoint(varv);
-                        variable.uint8 = (uint8_t)longsigned.unint;
+                        variable.uint8 = (int64_t)longsigned.unint;
                         heap = HEAP_Add(heap, UNSIGNED_INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %d\n", *((uint8_t*)heap->last_retv->data));
+                        printf("VAL: %ld\n", *((int64_t*)heap->last_retv->data));
 
                         //MTPL_Add();
                         break;
