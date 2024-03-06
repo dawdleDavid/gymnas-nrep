@@ -1,4 +1,4 @@
-uint8 a = 200
+.uint8 a = 200
 
 
 if a eq b

@@ -85,10 +85,9 @@ struct MTPL_Heap{
 
 #define CHARACTER_SIZE sizeof(char)
 
-extern MTPL_Heap* HEAP_Get(MTPL_Heap* heap, char name[MAX_VARIABLE_NAME_LENGHT]);
 extern MTPL_Heap* HEAP_Init();
-extern MTPL_Heap* HEAP_Add(MTPL_Heap* heap, uint16_t vartype, MTPL_Variable* variable, char name[MAX_VARIABLE_NAME_LENGHT]);
+extern MTPL_Heap* HEAP_Add(MTPL_Heap* heap, uint16_t vartype, MTPL_Variable* variable, unsigned int name);
 extern MTPL_Heap* HEAP_CleanContents(MTPL_Heap* heap);
-extern MTPL_Heap* HEAP_Get(MTPL_Heap* heap, char name[MAX_VARIABLE_NAME_LENGHT]);
+extern MTPL_Heap* HEAP_Get(MTPL_Heap* heap, unsigned int name);
 extern int HEAP_Destroy(MTPL_Heap* heap);
 #endif

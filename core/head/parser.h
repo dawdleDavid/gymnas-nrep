@@ -4,7 +4,7 @@
 #include <stdbool.h>
 // how mnay chars a row may be (256 bits)
 #define ROW_LIMIT 256
-void mtplParse(FILE* file);
+int mtplParse(FILE* file);
 enum{
     STOP,
     START

@@ -25,6 +25,7 @@ unsigned int HEAP_HashVaribleName(char name[MAX_VARIABLE_NAME_LENGHT]){
     return res;
 }
 
+
 void* mem_alloc(void* data, int size){
 
 
@@ -47,7 +48,7 @@ int mem_free(void* ptr, long int size){
     }return 1;
 }
 
-struct MTPL_Heap* LL_Create(MTPL_Heap* heap, uint32_t size, void* pointer,char name[MAX_VARIABLE_NAME_LENGHT]){
+struct MTPL_Heap* LL_Create(MTPL_Heap* heap, uint32_t size, void* pointer,unsigned int name){
 
 
 
@@ -76,7 +77,7 @@ struct MTPL_Heap* LL_Create(MTPL_Heap* heap, uint32_t size, void* pointer,char n
     }
 
     heap->nodes->node->data = pointer;
-    heap->nodes->node->name = HEAP_HashVaribleName(name);
+    heap->nodes->node->name = name;
     heap->nodes->node->size = size;
 
 
@@ -126,7 +127,7 @@ int LL_Remove(int n, struct Node* start, int choice){
 
 
 
-MTPL_Heap* HEAP_Main(MTPL_Heap* heap, uint32_t size, unsigned int opcode, void* data_ptr, char varname[MAX_VARIABLE_NAME_LENGHT]){
+MTPL_Heap* HEAP_Main(MTPL_Heap* heap, uint32_t size, unsigned int opcode, void* data_ptr, unsigned int varname){
     unsigned int choice = 0;
         puts("\n");
         switch(opcode){
@@ -157,7 +158,7 @@ MTPL_Heap* HEAP_Main(MTPL_Heap* heap, uint32_t size, unsigned int opcode, void* 
                 heap->number_of_nodes = LL_Remove(heap->number_of_nodes, heap->start, choice);
                 break;
             case HEAP_FIND:
-                choice = HEAP_HashVaribleName(varname);
+                choice = varname;
                 struct Node* node = heap->start;
                 for(int i = 1; i <= heap->number_of_nodes; i++){
                     if(choice == node->name){
@@ -191,7 +192,7 @@ MTPL_Heap* HEAP_Init(){
 
 
 
-MTPL_Heap* HEAP_Add(MTPL_Heap* heap, uint16_t vartype, MTPL_Variable* variable, char name[MAX_VARIABLE_NAME_LENGHT]){
+MTPL_Heap* HEAP_Add(MTPL_Heap* heap, uint16_t vartype, MTPL_Variable* variable, unsigned int name){
 
     // ALLOC mem
     void* variable_mem;
@@ -270,7 +271,7 @@ MTPL_Heap* HEAP_CleanContents(MTPL_Heap* heap){
     return 0;
 }
 
-MTPL_Heap* HEAP_Get(MTPL_Heap* heap, char name[MAX_VARIABLE_NAME_LENGHT]){
+MTPL_Heap* HEAP_Get(MTPL_Heap* heap, unsigned int name){
     return HEAP_Main(heap, 0, HEAP_FIND, NULL, name);
 }
 

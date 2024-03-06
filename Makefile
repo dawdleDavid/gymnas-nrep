@@ -15,5 +15,5 @@ rmex:
 
 clean:
 	rm *.o
-simple: frontend/main.c frontend/readfile.c core/src/strings.c core/src/parser.c core/src/hash.c core/src/heap.c core/head/strings.h core/head/hash.h core/head/heap.h frontend/readfile.h mtpl.h
-	gcc -Wall -Wpedantic -g -o mtpl frontend/main.c frontend/readfile.c core/src/strings.c core/src/parser.c core/src/hash.c core/src/heap.c core/head/strings.h core/head/hash.h core/head/heap.h frontend/readfile.h mtpl.h
+simple: frontend/main.c frontend/readfile.c core/src/strings.c core/src/parser.c core/src/hash.c core/src/heap.c core/src/stdstream.c core/head/stdstream.h core/head/strings.h core/head/hash.h core/head/heap.h frontend/readfile.h mtpl.h
+	gcc -Wall -Wpedantic -g -o mtpl frontend/main.c frontend/readfile.c core/src/strings.c core/src/parser.c core/src/hash.c core/src/heap.c core/head/strings.h core/head/hash.h core/head/heap.h frontend/readfile.h mtpl.h core/src/stdstream.c core/head/stdstream.h
