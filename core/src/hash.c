@@ -49,5 +49,6 @@ MTPL_Longsigned MTPL_Strtoint(char* string){
     for (; string[index] != '\0'; index++){
         res.unint = res.unint * 10 + string[index] - '0';
     }
+    // --
     return res;
 }
