@@ -1,0 +1,6 @@
+uint8 a = 200
+
+
+if a eq b
+	print "programming language"
+end

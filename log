@@ -1,0 +1,2 @@
+#newfirst
+Replaced a lot of mem_alloc calls with malloc, got integer allocation to work. atoi size fix
