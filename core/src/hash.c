@@ -9,7 +9,7 @@
 #define MAX_VARIABLE_NAME_LENGHT 64
 unsigned int MTPL_Bhash(char name[MAX_VARIABLE_NAME_LENGHT]){
     unsigned int res = 0;
-    printf("STRLEN: %lu\n", strlen(name));
+    //printf("STRLEN: %lu\n", strlen(name));
     for(int c = 0; c <= strlen(name); c++){
         res += ((unsigned int)name[c] * c); // reversed variable names now possible
     }
@@ -29,7 +29,7 @@ MTPL_Longsigned MTPL_Strtoint(char* string){
     /* remove newline */
     string[ strlen(string) - 1 ] = '\0';
 
-    printf("%s\n", string);
+    //printf("%s\n", string);
 //
     uint32_t index = 0; // does not have to be this big
     MTPL_Longsigned res;

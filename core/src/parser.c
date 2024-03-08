@@ -78,7 +78,7 @@ int mtplParse(FILE* file){
         perror("");
     }
 
-    puts("we ran this..");
+    //puts("we ran this..");
     char buffer[ROW_LIMIT];
 
 
@@ -101,9 +101,9 @@ int mtplParse(FILE* file){
 
 
         p_counter++;
-        printf("PC: %d\n", p_counter);
+        //printf("PC: %d\n", p_counter);
         if(row == (char*)NULL){
-            printf("EOF\n");
+            //printf("EOF\n");
             break;
         }
             // do something with the line that you just got
@@ -114,7 +114,7 @@ int mtplParse(FILE* file){
         // extract value from string
 
         for( int index = 0;index <= ROW_LIMIT; index++){
-            printf("%s\n", memwrap_p->words_list[index]);
+            //printf("%s\n", memwrap_p->words_list[index]);
             assert(memwrap_p->words_list[index] != NULL);
 
             if(strstr(memwrap_p->words_list[index], "\n") != NULL){
@@ -132,13 +132,13 @@ int mtplParse(FILE* file){
                 }
             }
             if(strcmp(varn, "") != 0){
-                printf("VARn: %s\n VART: %s\n VARV: %s\n", varn, vart, varv);
-                puts("handle the varible");
+                //printf("VARn: %s\n VART: %s\n VARV: %s\n", varn, vart, varv);
+                //puts("handle the varible");
 
                 // time to use the heap
 
                 // once again we employ the use of the massive switch
-                printf("vart: %s %d %d\n", vart, MTPL_Bhash(vart), UNSIGNED_INTEGER_8_TYPE);
+                //printf("vart: %s %d %d\n", vart, MTPL_Bhash(vart), UNSIGNED_INTEGER_8_TYPE);
                 switch(MTPL_Bhash(vart)){
                     case UNSIGNED_INTEGER_8_TYPE:
                         longsigned = MTPL_Strtoint(varv);
@@ -147,7 +147,7 @@ int mtplParse(FILE* file){
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %d\n", *((uint8_t*)heap->last_retv->data));
+                        //printf("VAL: %d\n", *((uint8_t*)heap->last_retv->data));
 
                         break;
                     case UNSIGNED_INTEGER_16_TYPE:
@@ -157,7 +157,7 @@ int mtplParse(FILE* file){
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %d\n", *((uint16_t*)heap->last_retv->data));
+                        //printf("VAL: %d\n", *((uint16_t*)heap->last_retv->data));
 
                         //MTPL_Add();
                         break;
@@ -168,7 +168,7 @@ int mtplParse(FILE* file){
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %d\n", *((uint32_t*)heap->last_retv->data));
+                        //printf("VAL: %d\n", *((uint32_t*)heap->last_retv->data));
 
                         //MTPL_Add();
                         break;
@@ -179,7 +179,7 @@ int mtplParse(FILE* file){
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %ld\n", *((uint64_t*)heap->last_retv->data));
+                        //printf("VAL: %ld\n", *((uint64_t*)heap->last_retv->data));
 
                         //MTPL_Add();
                         break;
@@ -190,7 +190,7 @@ int mtplParse(FILE* file){
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %d\n", *((int8_t*)heap->last_retv->data));
+                        //printf("VAL: %d\n", *((int8_t*)heap->last_retv->data));
 
                         //MTPL_Add();
                         break;
@@ -201,18 +201,18 @@ int mtplParse(FILE* file){
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %d\n", *((int16_t*)heap->last_retv->data));
+                        //printf("VAL: %d\n", *((int16_t*)heap->last_retv->data));
 
                         //MTPL_Add();
                         break;
                     case INTEGER_32_TYPE:
-                                                longsigned = MTPL_Strtoint(varv);
+                        longsigned = MTPL_Strtoint(varv);
                         variable.int32 = (int32_t)longsigned.siint;
                         heap = HEAP_Add(heap, INTEGER_32_TYPE, &variable, MTPL_Bhash(varn));
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %d\n", *((int32_t*)heap->last_retv->data));
+                        //printf("VAL: %d\n", *((int32_t*)heap->last_retv->data));
 
                         //MTPL_Add();
                         break;
@@ -223,7 +223,7 @@ int mtplParse(FILE* file){
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        printf("VAL: %ld\n", *((int64_t*)heap->last_retv->data));
+                        //printf("VAL: %ld\n", *((int64_t*)heap->last_retv->data));
 
                         //MTPL_Add();
                         break;
@@ -235,9 +235,9 @@ int mtplParse(FILE* file){
 
             // ALERT: handle std 'functions'
             for(int vari = 10; vari <= 10; vari++){
-                    printf("TTT:%s\n", removeWhiteSpace(memwrap_p->words_list[index]));
+                    //printf("TTT:%s\n", removeWhiteSpace(memwrap_p->words_list[index]));
                     if(strcmp(removeWhiteSpace(memwrap_p->words_list[index]), vardefs[vari]) == 0){
-                        puts("-->stdout<--");
+                        stdprint(removeWhiteSpace(memwrap_p->words_list[index+1]), NULL);
                     }
                 }
             }

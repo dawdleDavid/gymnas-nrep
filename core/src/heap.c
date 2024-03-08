@@ -33,7 +33,7 @@ void* mem_alloc(void* data, int size){
       PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, 0, 0 );
 
     if(ptr == (void *)-1){
-        puts("memory allocation failed");
+        //puts("memory allocation failed");
         return (void *)NULL;
     }
     memcpy(ptr, data, size);   // KOPIERA ÖVER MINNET, ALERT: SEGFAULT! (chorus of spaceballs theme) (no longer but props soon again <--)
@@ -43,7 +43,7 @@ void* mem_alloc(void* data, int size){
 
 int mem_free(void* ptr, long int size){
     if(munmap(ptr, size) == 0){
-        printf("dealloc %ld bytes, ptr points to adress: %p\n", size, ptr);
+        //printf("dealloc %ld bytes, ptr points to adress: %p\n", size, ptr);
         return 0;
     }return 1;
 }
@@ -85,13 +85,13 @@ struct MTPL_Heap* LL_Create(MTPL_Heap* heap, uint32_t size, void* pointer,unsign
     return heap;
 }
 int LL_List(int n, struct Node* start){
-    // puts("yee");
+    // //puts("yee");
     struct Node* node = start;
 
-    // puts("haw");
+    // //puts("haw");
     for(int i = 1; i <= n; i++){
-        // puts("boys");
-        printf("N:(%d) CONTAINED_POINTER:%p VARIABLE_NAME_HASHED:%x\n", i, node->data, node->name);
+        // //puts("boys");
+        //printf("N:(%d) CONTAINED_POINTER:%p VARIABLE_NAME_HASHED:%x\n", i, node->data, node->name);
         if(i == 1){
             node = start->next;
             continue;
@@ -100,7 +100,7 @@ int LL_List(int n, struct Node* start){
         node = node->next;
     }
     if(n == 0){
-        puts("no nodes!");
+        //puts("no nodes!");
     }
 
     return 0;
@@ -111,9 +111,9 @@ int LL_Remove(int n, struct Node* start, int choice){
 
     struct Node* node = start;
     for(int i = 1; i <= n; i++){
-        printf("(%d) %p %p\n", i, &node->data, node->data);
+        //printf("(%d) %p %p\n", i, &node->data, node->data);
         if(i == (choice-1)){
-            puts("ran");
+            //puts("ran");
             struct Node* temp = node->next;     // skapa temporär pekare till nästa nod
             node->next = temp->next;           //  flytta nuvarande nods pekare till temp
             mem_free(&temp, sizeof(*temp));   //   fria minnet för temp;
@@ -129,7 +129,7 @@ int LL_Remove(int n, struct Node* start, int choice){
 
 MTPL_Heap* HEAP_Main(MTPL_Heap* heap, uint32_t size, unsigned int opcode, void* data_ptr, unsigned int varname){
     unsigned int choice = 0;
-        puts("\n");
+        //puts("\n");
         switch(opcode){
             case HEAP_ADD:
                 heap->number_of_nodes++; // one at a time
@@ -143,18 +143,18 @@ MTPL_Heap* HEAP_Main(MTPL_Heap* heap, uint32_t size, unsigned int opcode, void* 
 
             case HEAP_REMOVE:
                 LL_List(heap->number_of_nodes, heap->start);
-                printf("Witch list would you like to remove?: ");
+                //printf("Witch list would you like to remove?: ");
                 scanf("%d", &choice);
                 if(choice == 1){
                     heap->JariPekare = heap->start->next;
                     mem_free(heap->start, sizeof(*heap->node));
                     heap->start = (struct Node*)heap->JariPekare;
-                    printf("\n\n%p\n", heap->start);
+                    //printf("\n\n%p\n", heap->start);
 
                     heap->number_of_nodes--;
                     break;
                 }
-                puts("ran LL_Remove");
+                //puts("ran LL_Remove");
                 heap->number_of_nodes = LL_Remove(heap->number_of_nodes, heap->start, choice);
                 break;
             case HEAP_FIND:
@@ -265,7 +265,7 @@ MTPL_Heap* HEAP_CleanContents(MTPL_Heap* heap){
         node = node->next;
     }
     if(heap->number_of_nodes == 0){
-        puts("no nodes!");
+        //puts("no nodes!");
     }
 
     return 0;
