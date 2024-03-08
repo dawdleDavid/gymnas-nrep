@@ -51,7 +51,7 @@ int main(int argc, char* argv[]){
 
 
 
-    // start parsing the file
+    // start parsing the file for stuff
 
 
     return 0;
