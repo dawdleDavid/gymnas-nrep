@@ -20,7 +20,7 @@
 #include "../head/stdstream.h"
 
 
-const char* vardefs[10] = {
+const char* vardefs[11] = {
     "int8 ",
     "int16 ",
     "int32 ",
@@ -31,6 +31,7 @@ const char* vardefs[10] = {
     "uint64 ",
     "float ",
     "lfloat ",
+    "stdout "
 };
 
 // returns memory that has to be free'd
@@ -151,8 +152,8 @@ int mtplParse(FILE* file){
                         break;
                     case UNSIGNED_INTEGER_16_TYPE:
                         longsigned = MTPL_Strtoint(varv);
-                        variable.uint8 = (uint16_t)longsigned.unint;
-                        heap = HEAP_Add(heap, UNSIGNED_INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
+                        variable.uint16 = (uint16_t)longsigned.unint;
+                        heap = HEAP_Add(heap, UNSIGNED_INTEGER_16_TYPE, &variable, MTPL_Bhash(varn));
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
@@ -162,8 +163,8 @@ int mtplParse(FILE* file){
                         break;
                     case UNSIGNED_INTEGER_32_TYPE:
                         longsigned = MTPL_Strtoint(varv);
-                        variable.uint8 = (uint32_t)longsigned.unint;
-                        heap = HEAP_Add(heap, UNSIGNED_INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
+                        variable.uint32 = (uint32_t)longsigned.unint;
+                        heap = HEAP_Add(heap, UNSIGNED_INTEGER_32_TYPE, &variable, MTPL_Bhash(varn));
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
@@ -173,8 +174,8 @@ int mtplParse(FILE* file){
                         break;
                     case UNSIGNED_INTEGER_64_TYPE:
                         longsigned = MTPL_Strtoint(varv);
-                        variable.uint8 = (uint64_t)longsigned.unint;
-                        heap = HEAP_Add(heap, UNSIGNED_INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
+                        variable.uint64 = (uint64_t)longsigned.unint;
+                        heap = HEAP_Add(heap, UNSIGNED_INTEGER_64_TYPE, &variable, MTPL_Bhash(varn));
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
@@ -183,9 +184,9 @@ int mtplParse(FILE* file){
                         //MTPL_Add();
                         break;
                     case INTEGER_8_TYPE:
-                                                longsigned = MTPL_Strtoint(varv);
-                        variable.uint8 = (int8_t)longsigned.unint;
-                        heap = HEAP_Add(heap, UNSIGNED_INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
+                        longsigned = MTPL_Strtoint(varv);
+                        variable.int8 = (int8_t)longsigned.siint;
+                        heap = HEAP_Add(heap, INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
@@ -194,9 +195,9 @@ int mtplParse(FILE* file){
                         //MTPL_Add();
                         break;
                     case INTEGER_16_TYPE:
-                                                longsigned = MTPL_Strtoint(varv);
-                        variable.uint8 = (int16_t)longsigned.unint;
-                        heap = HEAP_Add(heap, UNSIGNED_INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
+                        longsigned = MTPL_Strtoint(varv);
+                        variable.int16 = (int16_t)longsigned.siint;
+                        heap = HEAP_Add(heap, INTEGER_16_TYPE, &variable, MTPL_Bhash(varn));
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
@@ -206,8 +207,8 @@ int mtplParse(FILE* file){
                         break;
                     case INTEGER_32_TYPE:
                                                 longsigned = MTPL_Strtoint(varv);
-                        variable.uint8 = (int32_t)longsigned.unint;
-                        heap = HEAP_Add(heap, UNSIGNED_INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
+                        variable.int32 = (int32_t)longsigned.siint;
+                        heap = HEAP_Add(heap, INTEGER_32_TYPE, &variable, MTPL_Bhash(varn));
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
@@ -216,9 +217,9 @@ int mtplParse(FILE* file){
                         //MTPL_Add();
                         break;
                     case INTEGER_64_TYPE:
-                                                longsigned = MTPL_Strtoint(varv);
-                        variable.uint8 = (int64_t)longsigned.unint;
-                        heap = HEAP_Add(heap, UNSIGNED_INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
+                        longsigned = MTPL_Strtoint(varv);
+                        variable.int64 = (int64_t)longsigned.siint;
+                        heap = HEAP_Add(heap, INTEGER_64_TYPE, &variable, MTPL_Bhash(varn));
 
 
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
@@ -229,11 +230,20 @@ int mtplParse(FILE* file){
                 }
                 strcpy(varn, ""); // yeet
                 strcpy(vart, ""); // yeet
+                strcpy(varv, ""); // yeet
             }
 
+            // ALERT: handle std 'functions'
+            //for(int vari = 9; vari <= 11; vari++){
+                    //printf("vasrdefs[%d]: %s", vari, vardefs[vari]);
+                    printf("%s\n", memwrap_p->words_list[index]);
+                    if(strcmp(memwrap_p->words_list[index], removeWhiteSpace((char*)vardefs[10])) == 0){
+                        puts("-->stdout<--");
 
+                    }
+                }
+            //}
 
-        }
     }
 
     stdprint("test\n", STD_STRING);

@@ -19,7 +19,10 @@ unsigned int MTPL_Bhash(char name[MAX_VARIABLE_NAME_LENGHT]){
 
 
 char* removeWhiteSpace(char* string){
-    if(string[0] == ' '){ string++;} return string;
+    for(int i = 0; i <= strlen(string); i++){
+        if(string[i] == ' '){ string++;}else{break;}
+    }
+    return string;
 }
 
 #define CHOICE 0
