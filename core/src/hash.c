@@ -17,12 +17,8 @@ unsigned int MTPL_Bhash(char name[MAX_VARIABLE_NAME_LENGHT]){
 }
 // own version of atoi that returnsa int64 (given that that is supported)
 
-
 char* removeWhiteSpace(char* string){
-    for(int i = 0; i <= strlen(string); i++){
-        if(string[i] == ' '){ string++;}else{break;}
-    }
-    return string;
+    return strpbrk(string, "abcdefghijklmnopqrstuvwxyz123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ=");
 }
 
 #define CHOICE 0

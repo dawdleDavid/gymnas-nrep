@@ -20,7 +20,7 @@
 #include "../head/stdstream.h"
 
 
-const char* vardefs[11] = {
+char* vardefs[11] = {
     "int8 ",
     "int16 ",
     "int32 ",
@@ -234,15 +234,13 @@ int mtplParse(FILE* file){
             }
 
             // ALERT: handle std 'functions'
-            //for(int vari = 9; vari <= 11; vari++){
-                    //printf("vasrdefs[%d]: %s", vari, vardefs[vari]);
-                    printf("%s\n", memwrap_p->words_list[index]);
-                    if(strcmp(memwrap_p->words_list[index], removeWhiteSpace((char*)vardefs[10])) == 0){
+            for(int vari = 10; vari <= 10; vari++){
+                    printf("TTT:%s\n", removeWhiteSpace(memwrap_p->words_list[index]));
+                    if(strcmp(removeWhiteSpace(memwrap_p->words_list[index]), vardefs[vari]) == 0){
                         puts("-->stdout<--");
-
                     }
                 }
-            //}
+            }
 
     }
 
