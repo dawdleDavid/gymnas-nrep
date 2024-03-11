@@ -48,7 +48,7 @@ int mem_free(void* ptr, long int size){
     }return 1;
 }
 
-struct MTPL_Heap* LL_Create(MTPL_Heap* heap, uint32_t size, void* pointer,unsigned int name){
+struct MTPL_Heap* LL_Create(MTPL_Heap* heap, uint32_t size, void* pointer,unsigned int name, uint16_t type){
 
 
 
@@ -79,6 +79,7 @@ struct MTPL_Heap* LL_Create(MTPL_Heap* heap, uint32_t size, void* pointer,unsign
     heap->nodes->node->data = pointer;
     heap->nodes->node->name = name;
     heap->nodes->node->size = size;
+    heap->nodes->node->type = type;
 
 
     heap->nodes->node->next = heap->start;
@@ -127,13 +128,13 @@ int LL_Remove(int n, struct Node* start, int choice){
 
 
 
-MTPL_Heap* HEAP_Main(MTPL_Heap* heap, uint32_t size, unsigned int opcode, void* data_ptr, unsigned int varname){
+MTPL_Heap* HEAP_Main(MTPL_Heap* heap, uint32_t size, unsigned int opcode, void* data_ptr, unsigned int varname, uint16_t type){
     unsigned int choice = 0;
         //puts("\n");
         switch(opcode){
             case HEAP_ADD:
                 heap->number_of_nodes++; // one at a time
-                heap = LL_Create(heap, size, data_ptr, varname);
+                heap = LL_Create(heap, size, data_ptr, varname, type);
                 assert(heap->start != NULL);
                 heap->size += size;
                 break;
@@ -158,6 +159,7 @@ MTPL_Heap* HEAP_Main(MTPL_Heap* heap, uint32_t size, unsigned int opcode, void* 
                 heap->number_of_nodes = LL_Remove(heap->number_of_nodes, heap->start, choice);
                 break;
             case HEAP_FIND:
+                heap->last_retv = NULL; // ALERT: Error case for HEAP_Get, last->retv = NULL
                 choice = varname;
                 struct Node* node = heap->start;
                 for(int i = 1; i <= heap->number_of_nodes; i++){
@@ -204,36 +206,37 @@ MTPL_Heap* HEAP_Add(MTPL_Heap* heap, uint16_t vartype, MTPL_Variable* variable, 
 
     /* Same size for unsigned and signed right? Not taking any chanses */
     uint32_t size = 0; // upper bound
+    uint16_t type = 0;
     switch((uint16_t)vartype){
-        case INTEGER_8_TYPE: size = INTEGER_8_SIZE;
+        case INTEGER_8_TYPE: size = INTEGER_8_SIZE; type = INTEGER_8_TYPE;
             variable_mem = (void*)malloc(INTEGER_8_SIZE);
             memcpy(variable_mem, &variable->int8, size);
             break;
-        case INTEGER_16_TYPE: size = INTEGER_16_SIZE;
+        case INTEGER_16_TYPE: size = INTEGER_16_SIZE; type = INTEGER_16_TYPE;
             variable_mem = (void*)malloc(INTEGER_16_SIZE);
             memcpy(variable_mem, &variable->int16, size);
             break;
-        case INTEGER_32_TYPE: size = INTEGER_32_SIZE;
+        case INTEGER_32_TYPE: size = INTEGER_32_SIZE; type = INTEGER_32_TYPE;
             variable_mem = (void*)malloc(INTEGER_32_SIZE);
             memcpy(variable_mem, &variable->int32, size);
             break;
-        case INTEGER_64_TYPE: size = INTEGER_64_SIZE;
+        case INTEGER_64_TYPE: size = INTEGER_64_SIZE; type = INTEGER_64_TYPE;
             variable_mem = (void*)malloc(INTEGER_64_TYPE);
             memcpy(variable_mem, &variable->int64, size);
             break;
-        case UNSIGNED_INTEGER_8_TYPE: size = UNSIGNED_INTEGER_8_SIZE;
+        case UNSIGNED_INTEGER_8_TYPE: size = UNSIGNED_INTEGER_8_SIZE; type = UNSIGNED_INTEGER_8_TYPE;
             variable_mem = (void*)malloc(UNSIGNED_INTEGER_8_SIZE);
             memcpy(variable_mem, &variable->uint8, size);
             break;
-        case UNSIGNED_INTEGER_16_TYPE: size = UNSIGNED_INTEGER_16_SIZE;
+        case UNSIGNED_INTEGER_16_TYPE: size = UNSIGNED_INTEGER_16_SIZE; type = UNSIGNED_INTEGER_16_TYPE;
             variable_mem = (void*)malloc(UNSIGNED_INTEGER_16_SIZE);
             memcpy(variable_mem, &variable->uint16, size);
             break;
-        case UNSIGNED_INTEGER_32_TYPE: size = UNSIGNED_INTEGER_32_SIZE;
+        case UNSIGNED_INTEGER_32_TYPE: size = UNSIGNED_INTEGER_32_SIZE; type = UNSIGNED_INTEGER_32_TYPE;
             variable_mem = (void*)malloc(UNSIGNED_INTEGER_32_SIZE);
             memcpy(variable_mem, &variable->uint32, size);
             break;
-        case UNSIGNED_INTEGER_64_TYPE: size = UNSIGNED_INTEGER_64_SIZE;
+        case UNSIGNED_INTEGER_64_TYPE: size = UNSIGNED_INTEGER_64_SIZE; type = UNSIGNED_INTEGER_64_TYPE;
             variable_mem = (void*)malloc(UNSIGNED_INTEGER_64_SIZE);
             memcpy(variable_mem, &variable->uint64, size);
             break;
@@ -242,14 +245,14 @@ MTPL_Heap* HEAP_Add(MTPL_Heap* heap, uint16_t vartype, MTPL_Variable* variable, 
             variable_mem = (void*)mem_alloc(variable_mem, STRING_);
             */
             break;
-        case CHARACTER_TYPE: size = CHARACTER_SIZE;
+        case CHARACTER_TYPE: size = CHARACTER_SIZE; type = CHARACTER_TYPE;
             variable_mem = (void*)malloc(CHARACTER_SIZE);
             memcpy(variable_mem, &variable->character, size);
             break;
 
     }
     assert(variable_mem != NULL);
-    return HEAP_Main(heap, size, HEAP_ADD, variable_mem, name);
+    return HEAP_Main(heap, size, HEAP_ADD, variable_mem, name, type);
 }
 MTPL_Heap* HEAP_CleanContents(MTPL_Heap* heap){
 
@@ -272,7 +275,7 @@ MTPL_Heap* HEAP_CleanContents(MTPL_Heap* heap){
 }
 
 MTPL_Heap* HEAP_Get(MTPL_Heap* heap, unsigned int name){
-    return HEAP_Main(heap, 0, HEAP_FIND, NULL, name);
+    return HEAP_Main(heap, 0, HEAP_FIND, NULL, name, NULL);
 }
 
 int HEAP_Destroy(MTPL_Heap* heap){

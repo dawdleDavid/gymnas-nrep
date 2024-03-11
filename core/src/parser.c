@@ -7,6 +7,7 @@
 
 // debug
 #include <assert.h>
+#include <math.h>
 
 // heap memory
 #include "../head/heap.h"
@@ -91,8 +92,13 @@ int mtplParse(FILE* file){
 
     MTPL_Longsigned longsigned;
 
+    bool p_run= true;
+    char varn[ROW_LIMIT];
+    char vart[64];
+    char varv[ROW_LIMIT]; // use math o this to determine if this is resonable.
+    char* print_temp;
     /* Acctual parsing starts here... */
-    while(true){
+    while(p_run){
         char* row = fgets(buffer, ROW_LIMIT, file);
 
         // comments
@@ -108,9 +114,7 @@ int mtplParse(FILE* file){
         }
             // do something with the line that you just got
         memwrap_p = findKeyword(&memwrap, row);
-        char varn[ROW_LIMIT];
-        char vart[64];
-        char varv[ROW_LIMIT]; // use math o this to determine if this is resonable.
+
         // extract value from string
 
         for( int index = 0;index <= ROW_LIMIT; index++){
@@ -237,7 +241,33 @@ int mtplParse(FILE* file){
             for(int vari = 10; vari <= 10; vari++){
                     //printf("TTT:%s\n", removeWhiteSpace(memwrap_p->words_list[index]));
                     if(strcmp(removeWhiteSpace(memwrap_p->words_list[index]), vardefs[vari]) == 0){
-                        stdprint(removeWhiteSpace(memwrap_p->words_list[index+1]), NULL);
+                        // non variable case
+                        if(strstr(memwrap_p->words_list[index+1], "\"") != NULL){
+                            stdprint(removeWhiteSpace(memwrap_p->words_list[index+1]), NULL);
+                        }else{
+                            // find variable that is to be found
+                            heap = HEAP_Get(heap, MTPL_Bhash(memwrap_p->words_list[index+1]));
+                            if(heap->last_retv == NULL){
+                                fprintf(stderr, "error, line %d, variable not defined\n", p_counter);
+                                p_run = false; // stop program execution
+                            }
+
+                            switch(heap->last_retv->type){
+                                case UNSIGNED_INTEGER_8_TYPE:
+                                    longsigned.siint = 213;
+                                    puts("UNSIGNED_INTEGER_8_TYPE");
+                                    // find lenght of integer
+                                    int nDigits = floor(log10(abs(*((uint8_t*)heap->last_retv->data)))) + 1;
+
+                                    print_temp = malloc(nDigits); sprintf(print_temp,"%u", *((uint8_t*)heap->last_retv->data));
+
+                                    stdprint(print_temp, NULL);
+                                    free(print_temp); // do at end of switch later
+                                    break;
+                            }
+
+
+                        }
                     }
                 }
             }

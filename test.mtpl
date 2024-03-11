@@ -2,10 +2,8 @@
 
 . Comments simply beginn with a '.'
 
-.uint8 a = 200
+uint8 a = 200
 uint16 b = 345
 int64 c = -45
 
-if a eq b
-	stdout "programming language"
-end
+stdout a

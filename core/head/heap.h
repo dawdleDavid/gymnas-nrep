@@ -40,6 +40,7 @@ struct Node{
     struct Node* next;
     uint32_t name;
     uint32_t size;
+    uint16_t type;
 };
 
 struct Nodes{

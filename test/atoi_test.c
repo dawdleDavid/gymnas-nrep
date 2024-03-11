@@ -38,7 +38,6 @@ int geeksAtoi(char* str){
     return sign * res;
 }
 
-
 MTPL_Longsigned MTPL_Strtoint(/*MTPL_Longsigned res,*/ char* string){
     uint32_t index = 0; // does not have to be this big
     MTPL_Longsigned res;
@@ -65,6 +64,30 @@ MTPL_Longsigned MTPL_Strtoint(/*MTPL_Longsigned res,*/ char* string){
     }
     return res;
 }
+
+
+
+
+char* MTPL_Inttostr(MTPL_Longsigned universal_int){
+
+
+
+
+    char string[256];
+    uint32_t i = 0;
+
+    int byten = 56;
+    while(byten > 0){
+        string[i] = (char)(universal_int.siint >> byten);
+        i++;
+        byten-=8;
+    }
+    printf("STRING: %s\n", string);
+
+    return (char*)0x3434;
+}
+
+
 #define INPUT "1234\n"
 int main(){
     MTPL_Longsigned longs;
@@ -74,6 +97,9 @@ int main(){
 
     printf("\ngeeksAtoi:%d\nMTPL_Strtoint(unsigned): %lu\nMTPL_Strtoint(signed):%ld\n", etst, longs.unint, longs.siint);
 
+    longs.siint = 23;
 
+
+    MTPL_Inttostr(longs);
     return 0;
 }

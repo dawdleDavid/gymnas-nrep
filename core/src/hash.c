@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdint.h>
+#include <math.h>
 /* bad practice */
 
 #include "../head/hash.h"
@@ -18,10 +19,9 @@ unsigned int MTPL_Bhash(char name[MAX_VARIABLE_NAME_LENGHT]){
 // own version of atoi that returnsa int64 (given that that is supported)
 
 char* removeWhiteSpace(char* string){
-    return strpbrk(string, "abcdefghijklmnopqrstuvwxyz123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ=");
+    return strpbrk(string, "abcdefghijklmnopqrstuvwxyz123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ=åäöÅÄÖ");
 }
 
-#define CHOICE 0
 MTPL_Longsigned MTPL_Strtoint(char* string){
 
     /* remove white spaces */

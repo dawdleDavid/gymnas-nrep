@@ -5,5 +5,5 @@
 #define STD_FLOAT 3
 #define SYS_WRITE 1
 #include <stdint.h>
-void stdprint(void* message, uint8_t type);
+void stdprint(char* message, uint8_t type);
 #endif

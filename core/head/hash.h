@@ -3,6 +3,10 @@
 #include <stdint.h>
 #define MAX_VARIABLE_NAME_LENGHT 64
 
+#define CHOICE 0
+
+#define UNSIGNED_INTEGER 40
+
 union MTPL_Longsigned{
     uint64_t unint;
     int64_t siint;
