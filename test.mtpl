@@ -6,4 +6,10 @@ uint8 a = 200
 uint16 b = 345
 int64 c = -45
 
+.stdout a
+stdout "the quick brown fox jumps"
+stdout "this is awesome"
+stdout "i can print now"
 stdout a
+
+

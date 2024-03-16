@@ -7,7 +7,6 @@
 
 #include "readfile.h"
 
-
 #include "../mtpl.h"
 
 #include "../core/head/strings.h"

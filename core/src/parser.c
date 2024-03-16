@@ -79,6 +79,7 @@ int mtplParse(FILE* file){
         perror("");
     }
 
+
     //puts("we ran this..");
     char buffer[ROW_LIMIT];
 
@@ -97,6 +98,13 @@ int mtplParse(FILE* file){
     char vart[64];
     char varv[ROW_LIMIT]; // use math o this to determine if this is resonable.
     char* print_temp;
+
+
+    bool string_flag = false;
+
+    uint32_t tc = 0; //  temporary counter
+    char tcp[ROW_LIMIT]; //  temporary char pointer
+
     /* Acctual parsing starts here... */
     while(p_run){
         char* row = fgets(buffer, ROW_LIMIT, file);
@@ -117,8 +125,11 @@ int mtplParse(FILE* file){
 
         // extract value from string
 
+
+
+
+
         for( int index = 0;index <= ROW_LIMIT; index++){
-            //printf("%s\n", memwrap_p->words_list[index]);
             assert(memwrap_p->words_list[index] != NULL);
 
             if(strstr(memwrap_p->words_list[index], "\n") != NULL){
@@ -145,6 +156,9 @@ int mtplParse(FILE* file){
                 //printf("vart: %s %d %d\n", vart, MTPL_Bhash(vart), UNSIGNED_INTEGER_8_TYPE);
                 switch(MTPL_Bhash(vart)){
                     case UNSIGNED_INTEGER_8_TYPE:
+
+                        printf("%d\n", MTPL_Bhash(varn));
+
                         longsigned = MTPL_Strtoint(varv);
                         variable.uint8 = (uint8_t)longsigned.unint;
                         heap = HEAP_Add(heap, UNSIGNED_INTEGER_8_TYPE, &variable, MTPL_Bhash(varn));
@@ -158,12 +172,7 @@ int mtplParse(FILE* file){
                         longsigned = MTPL_Strtoint(varv);
                         variable.uint16 = (uint16_t)longsigned.unint;
                         heap = HEAP_Add(heap, UNSIGNED_INTEGER_16_TYPE, &variable, MTPL_Bhash(varn));
-
-
                         heap = HEAP_Get(heap, MTPL_Bhash(varn));
-                        //printf("VAL: %d\n", *((uint16_t*)heap->last_retv->data));
-
-                        //MTPL_Add();
                         break;
                     case UNSIGNED_INTEGER_32_TYPE:
                         longsigned = MTPL_Strtoint(varv);
@@ -235,45 +244,54 @@ int mtplParse(FILE* file){
                 strcpy(varn, ""); // yeet
                 strcpy(vart, ""); // yeet
                 strcpy(varv, ""); // yeet
+
             }
 
+            if(strstr(memwrap_p->words_list[index], "\"") != NULL){
+                string_flag = false;
+            }
             // ALERT: handle std 'functions'
             for(int vari = 10; vari <= 10; vari++){
                     //printf("TTT:%s\n", removeWhiteSpace(memwrap_p->words_list[index]));
                     if(strcmp(removeWhiteSpace(memwrap_p->words_list[index]), vardefs[vari]) == 0){
-                        // non variable case
+
                         if(strstr(memwrap_p->words_list[index+1], "\"") != NULL){
-                            stdprint(removeWhiteSpace(memwrap_p->words_list[index+1]), NULL);
+
+
+                            tc = 1;
+                            stdprint(removeWhiteSpace(memwrap_p->words_list[index+tc]), NULL);
+                            do{
+                                tc++;
+                                stdprint(removeWhiteSpace(memwrap_p->words_list[index+tc]), NULL);
+                            }while(strstr(memwrap_p->words_list[index+tc], "\"") == NULL);
+
+                            //strncat(tcp, memwrap_p->words_list[index+tc], (strlen(memwrap_p->words_list[index]) -2));
+                            //puts("-----");
+                            //stdprint(tcp, NULL);
+                            continue;
                         }else{
                             // find variable that is to be found
-                            heap = HEAP_Get(heap, MTPL_Bhash(memwrap_p->words_list[index+1]));
+                            printf("%d\n", MTPL_Bhash(" a "));
+
+
+
+
+                            heap = HEAP_Get(heap, MTPL_Bhash(" a "));
                             if(heap->last_retv == NULL){
+
+                                assert(heap->last_retv != NULL);
+
                                 fprintf(stderr, "error, line %d, variable not defined\n", p_counter);
                                 p_run = false; // stop program execution
                             }
-
-                            switch(heap->last_retv->type){
-                                case UNSIGNED_INTEGER_8_TYPE:
-                                    longsigned.siint = 213;
-                                    puts("UNSIGNED_INTEGER_8_TYPE");
-                                    // find lenght of integer
-                                    int nDigits = floor(log10(abs(*((uint8_t*)heap->last_retv->data)))) + 1;
-
-                                    print_temp = malloc(nDigits); sprintf(print_temp,"%u", *((uint8_t*)heap->last_retv->data));
-
-                                    stdprint(print_temp, NULL);
-                                    free(print_temp); // do at end of switch later
-                                    break;
-                            }
-
+                            stdprint(heap->last_retv->data, NULL);
 
                         }
+
                     }
                 }
             }
-
+            strcpy(tcp, ""); // yeet
     }
-
-    stdprint("test\n", STD_STRING);
     return HEAP_Destroy(heap);
 }
