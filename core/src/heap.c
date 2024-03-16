@@ -15,7 +15,7 @@
 #include "../head/heap.h"
 
 
-
+//
 /* TODO: remove clone fn def */
 unsigned int HEAP_HashVaribleName(char name[MAX_VARIABLE_NAME_LENGHT]){
     unsigned int res = 0;
