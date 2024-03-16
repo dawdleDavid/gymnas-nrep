@@ -411,7 +411,7 @@ int main(int argc, char* argv[]){
 
 // wee
     return 0;
-}//
+}// //
 // (cd /home/david/Projekts/GY-EX && git add --all && git commit -m "för om gör rätt" && git push -u origi master)
 // https://developers.redhat.com/articles/the-gdb-developers-gnu-debugger-tutorial-part-1-getting-started-with-the-debugger
 // gcc heap_test.c -g -g3 -o heap -O0
