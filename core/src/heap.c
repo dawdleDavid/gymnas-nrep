@@ -145,7 +145,6 @@ MTPL_Heap* HEAP_Main(MTPL_Heap* heap, uint32_t size, unsigned int opcode, void* 
             case HEAP_REMOVE:
                 LL_List(heap->number_of_nodes, heap->start);
                 //printf("Witch list would you like to remove?: ");
-                scanf("%d", &choice);
                 if(choice == 1){
                     heap->JariPekare = heap->start->next;
                     mem_free(heap->start, sizeof(*heap->node));

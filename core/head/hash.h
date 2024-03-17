@@ -1,6 +1,7 @@
 #ifndef HASH_H
 #define HASH_H
 #include <stdint.h>
+#include <stdbool.h>
 #define MAX_VARIABLE_NAME_LENGHT 64
 
 #define CHOICE 0
@@ -20,4 +21,5 @@ union MTPL_Longsigned{
 unsigned int MTPL_Bhash(char name[MAX_VARIABLE_NAME_LENGHT]);
 MTPL_Longsigned MTPL_Strtoint(char* string);
 char* removeWhiteSpace(char* string);
+char* MTPL_Inttostr(char* string, MTPL_Longsigned longsigned, bool issigned);
 #endif

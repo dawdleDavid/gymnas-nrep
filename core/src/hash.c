@@ -20,13 +20,14 @@ unsigned int MTPL_Bhash(char name[MAX_VARIABLE_NAME_LENGHT]){
 // own version of atoi that returnsa int64 (given that that is supported)
 
 char* removeWhiteSpace(char* string){
-    return strpbrk(string, "abcdefghijklmnopqrstuvwxyz123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ=åäöÅÄÖ ");
+    return strpbrk(string, "-abcdefghijklmnopqrstuvwxyz123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ=åäöÅÄÖ "); /* VARJE karaktär måste vara här!!! */
 }
 
 MTPL_Longsigned MTPL_Strtoint(char* string){
 
     /* remove white spaces */
     string = removeWhiteSpace(string);
+    puts(string);
     /* remove newline */
     string[ strlen(string) - 1 ] = '\0';
 
@@ -38,6 +39,7 @@ MTPL_Longsigned MTPL_Strtoint(char* string){
     res.siint = 0;    // (same mem)
 
     if(string[0] == '-'){
+        puts("signed int case");
         index++;
         for (; string[index] != '\0'; index++){
             res.siint = res.siint * 10 + string[index] - '0';
@@ -52,6 +54,7 @@ MTPL_Longsigned MTPL_Strtoint(char* string){
     // --
     return res;
 }
+
 // (strlen(string) = ROW_LIMIT)
 char* MTPL_Inttostr(char* string, MTPL_Longsigned longsigned, bool issigned){
 
@@ -61,4 +64,7 @@ char* MTPL_Inttostr(char* string, MTPL_Longsigned longsigned, bool issigned){
         return string;
     }
 
+    sprintf(string, "%lu", longsigned.unint);
+
+    return string;
 }
