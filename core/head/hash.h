@@ -18,6 +18,9 @@ union MTPL_Longsigned{
  *  Some of these functions should be moved in
  *  the future. A lot of these have noting to do with hashing...
  */
+
+
+
 unsigned int MTPL_Bhash(char name[MAX_VARIABLE_NAME_LENGHT]);
 MTPL_Longsigned MTPL_Strtoint(char* string);
 char* removeWhiteSpace(char* string);

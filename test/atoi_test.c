@@ -86,7 +86,20 @@ char* MTPL_Inttostr(MTPL_Longsigned universal_int){
 
     return (char*)0x3434;
 }
+unsigned int MTPL_Bhash(char name[MAX_VARIABLE_NAME_LENGHT]){
+    unsigned int res = 0;
+    //printf("STRLEN: %lu\n", strlen(name));
 
+
+
+    int c = 0;
+    while(name[c] != '\0'){
+        if(name[c] == '\n' || name[c] == ' '){c++; continue;}
+        res += ((unsigned int)name[c] * c); // reversed variable names now possible
+        c++;
+    }
+    return res;
+}
 
 #define INPUT "1234\n"
 int main(){

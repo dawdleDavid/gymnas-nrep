@@ -1,16 +1,16 @@
-.This is a test program for the mtpl
+stdout "this is it"
+stdout "all in the house lads"
+stdout "albatross circle"
+stdout "eat my left foot"
+stdout " ssss"
+uint64 VariableNameStressTest = 45874958
+uint64 VariableNameStressTest = 4534
 
-. Comments simply beginn with a '.'
-
-uint8 a = 250
-uint16 b = 345
-int64 c = -45
-
-.stdout a
-stdout "the quick brown fox jumps"
-stdout "this is awesome"
-stdout "i can print now"
-stdout "the world will know power"
-stdout a
+uint8 V = 454
 
 
+stdout VariableNameStressTest
+
+stdout V
+.cmp V < VariableNameStressTest
+.goto label
